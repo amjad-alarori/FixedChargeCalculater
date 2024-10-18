@@ -53,7 +53,7 @@ export default {
                 },
                 {
                     name: "VVE",
-                    amount: 182.55
+                    amount: 197
                 },
                 {
                     name: "Rechtsbijstand verzekering",
@@ -69,7 +69,7 @@ export default {
                 },
                 {
                     name: "Auto verzekering",
-                    amount: 39.22
+                    amount: 44
                 },
                 {
                     name: "Amjad Zorgverzekering",
@@ -78,10 +78,6 @@ export default {
                 {
                     name: "Duaa Zorgverzekering",
                     amount: 200
-                },
-                {
-                    name: "Duaa Lesgeld",
-                    amount: 150
                 },
                 {
                     name: "Auto Belasting",
@@ -93,11 +89,11 @@ export default {
                 },
                 {
                     name: "Water",
-                    amount: 25
+                    amount: 32
                 },
                 {
                     name: "Internet",
-                    amount: 42.50
+                    amount: 18.5
                 },
                 {
                     name: "ABN Bijdrage",
