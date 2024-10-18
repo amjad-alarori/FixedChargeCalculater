@@ -97,7 +97,7 @@ export default {
                 },
                 {
                     name: "ABN Bijdrage",
-                    amount: 3.25
+                    amount: 4
                 },
                 {
                     name: "ANWB Bijdrage",
