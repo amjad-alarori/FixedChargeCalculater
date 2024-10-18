@@ -101,7 +101,7 @@ export default {
                 },
                 {
                     name: "ANWB Bijdrage",
-                    amount: 9.50
+                    amount: 11
                 },
                 {
                     name: "Amjad Telefoon",
