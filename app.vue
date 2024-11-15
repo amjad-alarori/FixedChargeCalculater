@@ -11,10 +11,6 @@
         <input type="number" v-model="wifeIncome" class="w-full p-2 mb-4 border rounded">
       </div>
       <div>
-        <label class="block mb-2">Studiefinanciering</label>
-        <input type="number" v-model="studyloan" class="w-full p-2 mb-4 border rounded">
-      </div>
-      <div>
         <label class="block mb-2">Andere Inkomsten:</label>
         <input type="number" v-model="otherIncome" class="w-full p-2 mb-4 border rounded">
       </div>
@@ -69,7 +65,7 @@ export default {
                 },
                 {
                     name: "Auto verzekering",
-                    amount: 44
+                    amount: 53
                 },
                 {
                     name: "Amjad Zorgverzekering",
@@ -81,7 +77,7 @@ export default {
                 },
                 {
                     name: "Auto Belasting",
-                    amount: 63
+                    amount: 93
                 },
                 {
                     name: "Elektra",
@@ -117,7 +113,7 @@ export default {
                 },
                 {
                     name: "Boodschappen",
-                    amount: 650
+                    amount: 700
                 },
                 {
                     name: "Amjad prive",
