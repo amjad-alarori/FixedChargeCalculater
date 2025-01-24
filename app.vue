@@ -40,7 +40,6 @@ export default {
     return {
       yourIncome: 0,
       wifeIncome: 0,
-      studyloan: 0,
       otherIncome: 0,
       defaultFixedCharges: [
         {
@@ -57,7 +56,7 @@ export default {
                 },
                 {
                     name: "Woon verzekering",
-                    amount: 16.99
+                    amount: 10
                 },
                 {
                     name: "Overlijdrisico verzekering",
@@ -65,7 +64,11 @@ export default {
                 },
                 {
                     name: "Auto verzekering",
-                    amount: 53
+                    amount: 44
+                 }
+                 {
+                    name: "Auto parkeren",
+                    amount: 10
                 },
                 {
                     name: "Amjad Zorgverzekering",
@@ -89,7 +92,7 @@ export default {
                 },
                 {
                     name: "Internet",
-                    amount: 18.5
+                    amount: 35
                 },
                 {
                     name: "ABN Bijdrage",
@@ -97,7 +100,7 @@ export default {
                 },
                 {
                     name: "ANWB Bijdrage",
-                    amount: 11
+                    amount: 12.5
                 },
                 {
                     name: "Amjad Telefoon",
