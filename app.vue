@@ -78,36 +78,37 @@
                 + Nieuwe Uitgave
               </button>
             </div>
-            <div class="border rounded-lg max-h-60 overflow-y-auto bg-gray-50 dark:bg-gray-700 
-                      p-4 space-y-3 transition-colors duration-200">
+
+            <div class="border rounded-lg max-h-80 overflow-y-auto bg-gray-50 dark:bg-gray-700 p-4 space-y-4">
               <div 
                 v-for="charge in fixedCharges" 
                 :key="charge.id" 
-                class="flex items-center space-x-4 bg-white dark:bg-gray-800 p-3 
-                       rounded-lg shadow-sm transition-colors duration-200"
+                class="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-4 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm transition-colors duration-200"
               >
-                <input 
-                  v-model="charge.name" 
-                  class="flex-1 px-3 py-2 border rounded-lg focus:ring-blue-500 
-                         focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
-                         dark:text-white transition-colors duration-200" 
-                  placeholder="Uitgave naam"
-                >
-                <div class="relative w-36">
+                <!-- Charge Name Input -->
+                <div class="flex-1">
+                  <input 
+                    v-model="charge.name" 
+                    class="w-full px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" 
+                    placeholder="Uitgave naam"
+                  />
+                </div>
+
+                <!-- Charge Amount Input -->
+                <div class="relative w-full sm:w-36 mt-2 sm:mt-0">
                   <span class="absolute left-3 top-2 text-gray-500 dark:text-gray-400">€</span>
                   <input 
                     v-model="charge.amount" 
                     type="number" 
-                    class="w-full pl-8 pr-4 py-2 border rounded-lg focus:ring-blue-500 
-                           focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
-                           dark:text-white transition-colors duration-200" 
+                    class="w-full pl-8 pr-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" 
                     placeholder="0.00"
-                  >
+                  />
                 </div>
+
+                <!-- Remove Button -->
                 <button 
                   @click="removeCharge(charge.id)" 
-                  class="p-2 text-red-500 hover:text-red-700 dark:text-red-400 
-                         dark:hover:text-red-300 transition-colors duration-200"
+                  class="mt-2 sm:mt-0 p-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors duration-200"
                 >
                   ✖
                 </button>
@@ -202,69 +203,48 @@ const addNewCharge = () => {
 
 const removeCharge = (id) => {
   fixedCharges.value = fixedCharges.value.filter(charge => charge.id !== id);
-  calculate();
 };
 
 const calculate = () => {
-  totals.income = Object.values(incomes.value).reduce((sum, val) => sum + (parseFloat(val) || 0), 0);
-  totals.expenses = fixedCharges.value.reduce((sum, charge) => sum + (parseFloat(charge.amount) || 0), 0);
+  totals.income = Object.values(incomes.value).reduce((a, b) => a + b, 0);
+  totals.expenses = fixedCharges.value.reduce((a, charge) => a + charge.amount, 0);
   totals.remaining = totals.income - totals.expenses;
 };
 
 const resetCalculator = () => {
   incomes.value = { amjad: 0, duaa: 0, other: 0 };
-  fixedCharges.value = [
-    { id: 1, name: "Hypotheek", amount: 1344.78 },
-    { id: 2, name: "VVE", amount: 197 },
-    { id: 3, name: "Rechtsbijstand verzekering", amount: 17.37 },
-    { id: 4, name: "Woon verzekering", amount: 10 },
-    { id: 5, name: "Overlijdrisico verzekering", amount: 32.37 },
-    { id: 6, name: "Auto verzekering", amount: 44 },
-    { id: 7, name: "Auto parkeren", amount: 10 },
-    { id: 8, name: "Amjad Zorgverzekering", amount: 165.90 },
-    { id: 9, name: "Duaa Zorgverzekering", amount: 200 },
-    { id: 10, name: "Auto Belasting", amount: 93 },
-    { id: 11, name: "Elektra", amount: 221 },
-    { id: 12, name: "Water", amount: 32 },
-    { id: 13, name: "Internet", amount: 35 },
-    { id: 14, name: "ABN Bijdrage", amount: 4 },
-    { id: 15, name: "ANWB Bijdrage", amount: 12.5 },
-    { id: 16, name: "Amjad Telefoon", amount: 17.5 },
-    { id: 17, name: "Duaa Telefoon", amount: 25 },
-    { id: 18, name: "Kinderopvang bijdrage", amount: 50 },
-    { id: 19, name: "Boodschappen", amount: 700 },
-    { id: 20, name: "Amjad prive", amount: 250 },
-    { id: 21, name: "Duaa prive", amount: 250 },
-    { id: 22, name: "Geld Overmaken Familie", amount: 400 }
-  ];
-  calculate();
+  fixedCharges.value.forEach(charge => charge.amount = 0);
+  totals.income = 0;
+  totals.expenses = 0;
+  totals.remaining = 0;
 };
 
-
-const formatNumber = (number) => {
-  return number.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const formatNumber = (num) => {
+  return num.toFixed(2).replace('.', ',');
 };
-
-watch([incomes, fixedCharges], calculate, { deep: true });
-
-onMounted(calculate);
 </script>
 
-<style>
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-/* Smooth transitions for dark mode */
+<style scoped>
+/* Dark and Light Mode Transitions */
 * {
   transition-property: color, background-color, border-color;
   transition-duration: 200ms;
   transition-timing-function: ease-in-out;
+}
+
+/* Responsive Adjustments for Small Devices */
+@media (max-width: 640px) {
+  .sm\:w-36 {
+    width: 100% !important;
+  }
+
+  .sm\:flex-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .sm\:mt-0 {
+    margin-top: 8px !important;
+  }
 }
 </style>
