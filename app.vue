@@ -197,39 +197,73 @@ const defaultCharges = [
   { id: 22, name: "Geld Overmaken Familie", amount: 400 }
 ];
 
+// Reactive references
 const incomes = ref({ ...defaultIncomes });
-const incomeLabels = { amjad: 'Amjad Inkomen', duaa: 'Duaa Inkomen', other: 'Andere Inkomsten' };
+const incomeLabels = { 
+  amjad: 'Amjad Inkomen', 
+  duaa: 'Duaa Inkomen', 
+  other: 'Andere Inkomsten' 
+};
 const fixedCharges = ref([...defaultCharges]);
 
-const totals = reactive({ income: 0, expenses: 0, remaining: 0 });
+// Reactive totals object
+const totals = reactive({
+  income: 0,
+  expenses: 0,
+  remaining: 0
+});
 
 // Watch for changes and recalculate automatically
 watch([incomes, fixedCharges], () => {
   calculate();
 }, { deep: true });
 
+// Add new charge with unique ID
 const addNewCharge = () => {
-  fixedCharges.value.push({ id: Date.now(), name: "Nieuwe Uitgave", amount: 0 });
+  const newId = Math.max(...fixedCharges.value.map(charge => charge.id), 0) + 1;
+  fixedCharges.value.push({
+    id: newId,
+    name: "Nieuwe Uitgave",
+    amount: 0
+  });
 };
 
-const removeCharge = (id) => {
+// Remove charge by ID
+const removeCharge = (id: number) => {
   fixedCharges.value = fixedCharges.value.filter(charge => charge.id !== id);
 };
 
+// Safe number parsing
+const safeParseFloat = (value: any): number => {
+  const parsed = parseFloat(value);
+  return isNaN(parsed) ? 0 : parsed;
+};
+
+// Calculate totals with safe number handling
 const calculate = () => {
-  totals.income = Object.values(incomes.value).reduce((a, b) => a + b, 0);
-  totals.expenses = fixedCharges.value.reduce((a, charge) => a + charge.amount, 0);
+  // Calculate total income
+  totals.income = Object.values(incomes.value).reduce((sum, value) => {
+    return sum + safeParseFloat(value);
+  }, 0);
+  
+  // Calculate total expenses
+  totals.expenses = fixedCharges.value.reduce((sum, charge) => {
+    return sum + safeParseFloat(charge.amount);
+  }, 0);
+  
+  // Calculate remaining amount
   totals.remaining = totals.income - totals.expenses;
 };
 
-// Reset to the default values
+// Reset calculator to default values
 const resetCalculator = () => {
   incomes.value = { ...defaultIncomes };
   fixedCharges.value = [...defaultCharges];
-  // The watch will automatically calculate the totals after reset
+  calculate(); // Recalculate totals after reset
 };
 
-const formatNumber = (num) => {
+// Format number for display
+const formatNumber = (num: number): string => {
   return num.toFixed(2).replace('.', ',');
 };
 </script>
