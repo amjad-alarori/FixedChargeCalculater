@@ -165,12 +165,14 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
+
 const colorMode = useColorMode();
 const changeColor = () => (colorMode.preference = colorMode.value === 'light' ? 'dark' : 'light');
 
-const incomes = ref({ amjad: 0, duaa: 0, other: 0 });
-const incomeLabels = { amjad: 'Amjad Inkomen', duaa: 'Duaa Inkomen', other: 'Andere Inkomsten' };
-const fixedCharges = ref([
+// Default values for incomes and charges
+const defaultIncomes = { amjad: 0, duaa: 0, other: 0 };
+const defaultCharges = [
   { id: 1, name: "Hypotheek", amount: 1344.78 },
   { id: 2, name: "VVE", amount: 197 },
   { id: 3, name: "Rechtsbijstand verzekering", amount: 17.37 },
@@ -193,9 +195,18 @@ const fixedCharges = ref([
   { id: 20, name: "Amjad prive", amount: 250 },
   { id: 21, name: "Duaa prive", amount: 250 },
   { id: 22, name: "Geld Overmaken Familie", amount: 400 }
-]);
+];
+
+const incomes = ref({ ...defaultIncomes });
+const incomeLabels = { amjad: 'Amjad Inkomen', duaa: 'Duaa Inkomen', other: 'Andere Inkomsten' };
+const fixedCharges = ref([...defaultCharges]);
 
 const totals = reactive({ income: 0, expenses: 0, remaining: 0 });
+
+// Watch for changes and recalculate automatically
+watch([incomes, fixedCharges], () => {
+  calculate();
+}, { deep: true });
 
 const addNewCharge = () => {
   fixedCharges.value.push({ id: Date.now(), name: "Nieuwe Uitgave", amount: 0 });
@@ -211,18 +222,18 @@ const calculate = () => {
   totals.remaining = totals.income - totals.expenses;
 };
 
+// Reset to the default values
 const resetCalculator = () => {
-  incomes.value = { amjad: 0, duaa: 0, other: 0 };
-  fixedCharges.value.forEach(charge => charge.amount = 0);
-  totals.income = 0;
-  totals.expenses = 0;
-  totals.remaining = 0;
+  incomes.value = { ...defaultIncomes };
+  fixedCharges.value = [...defaultCharges];
+  // The watch will automatically calculate the totals after reset
 };
 
 const formatNumber = (num) => {
   return num.toFixed(2).replace('.', ',');
 };
 </script>
+
 
 <style scoped>
 /* Dark and Light Mode Transitions */
