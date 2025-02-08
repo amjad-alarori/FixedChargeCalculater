@@ -215,10 +215,31 @@ const resetCalculator = () => {
   incomes.value = { amjad: 0, duaa: 0, other: 0 };
   fixedCharges.value = [
     { id: 1, name: "Hypotheek", amount: 1344.78 },
-    { id: 2, name: "Elektra", amount: 221 },
+    { id: 2, name: "VVE", amount: 197 },
+    { id: 3, name: "Rechtsbijstand verzekering", amount: 17.37 },
+    { id: 4, name: "Woon verzekering", amount: 10 },
+    { id: 5, name: "Overlijdrisico verzekering", amount: 32.37 },
+    { id: 6, name: "Auto verzekering", amount: 44 },
+    { id: 7, name: "Auto parkeren", amount: 10 },
+    { id: 8, name: "Amjad Zorgverzekering", amount: 165.90 },
+    { id: 9, name: "Duaa Zorgverzekering", amount: 200 },
+    { id: 10, name: "Auto Belasting", amount: 93 },
+    { id: 11, name: "Elektra", amount: 221 },
+    { id: 12, name: "Water", amount: 32 },
+    { id: 13, name: "Internet", amount: 35 },
+    { id: 14, name: "ABN Bijdrage", amount: 4 },
+    { id: 15, name: "ANWB Bijdrage", amount: 12.5 },
+    { id: 16, name: "Amjad Telefoon", amount: 17.5 },
+    { id: 17, name: "Duaa Telefoon", amount: 25 },
+    { id: 18, name: "Kinderopvang bijdrage", amount: 50 },
+    { id: 19, name: "Boodschappen", amount: 700 },
+    { id: 20, name: "Amjad prive", amount: 250 },
+    { id: 21, name: "Duaa prive", amount: 250 },
+    { id: 22, name: "Geld Overmaken Familie", amount: 400 }
   ];
   calculate();
 };
+
 
 const formatNumber = (number) => {
   return number.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
