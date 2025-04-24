@@ -175,10 +175,10 @@ const defaultIncomes = { amjad: 0, duaa: 0, other: 0 };
 const defaultCharges = [
   { id: 1, name: "Hypotheek", amount: 1344.78 },
   { id: 2, name: "VVE", amount: 197 },
-  { id: 3, name: "Rechtsbijstand verzekering", amount: 17.37 },
+  { id: 3, name: "Rechtsbijstand verzekering", amount: 18.91 },
   { id: 4, name: "Woon verzekering", amount: 10 },
   { id: 5, name: "Overlijdrisico verzekering", amount: 32.37 },
-  { id: 6, name: "Auto verzekering", amount: 44 },
+  { id: 6, name: "Auto verzekering", amount: 91 },
   { id: 7, name: "Auto parkeren", amount: 10 },
   { id: 8, name: "Amjad Zorgverzekering", amount: 165.90 },
   { id: 9, name: "Duaa Zorgverzekering", amount: 200 },
