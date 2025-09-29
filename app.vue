@@ -179,7 +179,7 @@ const defaultCharges = [
   { id: 4, name: "Woon verzekering", amount: 10 },
   { id: 5, name: "Overlijdrisico verzekering", amount: 32.37 },
   { id: 6, name: "Auto verzekering Polo", amount: 91 },
-  { id: 7, name: "Auto verzekering Golf", amount: 94 },
+  { id: 7, name: "Auto verzekering Golf", amount: 101 },
   { id: 8, name: "Auto Belasting Polo", amount: 93 },
   { id: 9, name: "Auto Belasting Golf", amount: 25 },
   { id: 10, name: "Aansprakelijkheid verzekering", amount: 7.5 },
