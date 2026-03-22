@@ -55,6 +55,39 @@
       </div>
     </div>
 
+    <!-- iOS Install Banner -->
+    <ClientOnly>
+      <Transition name="slide-up">
+        <div
+          v-if="showInstallBanner"
+          class="fixed bottom-0 left-0 right-0 z-50 safe-bottom"
+        >
+          <div class="max-w-2xl mx-auto px-4 pb-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200/60 dark:border-gray-700 p-4 flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0">
+                <span class="text-white font-bold text-sm">€</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[14px] font-semibold text-gray-900 dark:text-white">Installeer als app</div>
+                <div class="text-[12px] text-gray-500 dark:text-gray-400 mt-0.5">
+                  Tik op
+                  <Icon name="heroicons-outline:arrow-up-on-square" class="inline text-blue-500 text-[14px] -mt-0.5" />
+                  en dan <strong>"Zet op beginscherm"</strong>
+                </div>
+              </div>
+              <button
+                @click="dismissInstallBanner"
+                class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 shrink-0"
+                aria-label="Sluiten"
+              >
+                <Icon name="heroicons-outline:x-mark" class="text-[16px]" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </ClientOnly>
+
     <!-- Main Content -->
     <main class="max-w-2xl mx-auto px-4 pt-5 pb-10 space-y-6">
 
@@ -145,9 +178,26 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { watch, onMounted } from 'vue';
 
 const colorMode = useColorMode();
+
+// iOS PWA install banner
+const showInstallBanner = ref(false);
+
+onMounted(() => {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isStandalone = ('standalone' in window.navigator) && (window.navigator as any).standalone;
+  const dismissed = localStorage.getItem('pwa-banner-dismissed');
+  if (isIOS && !isStandalone && !dismissed) {
+    showInstallBanner.value = true;
+  }
+});
+
+const dismissInstallBanner = () => {
+  showInstallBanner.value = false;
+  localStorage.setItem('pwa-banner-dismissed', 'true');
+};
 const changeColor = () => (colorMode.preference = colorMode.value === 'light' ? 'dark' : 'light');
 
 // Default values
@@ -237,3 +287,18 @@ const formatNumber = (num: number): string => {
   return num.toFixed(2).replace('.', ',');
 };
 </script>
+
+<style scoped>
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+</style>
