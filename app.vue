@@ -216,7 +216,7 @@ const defaultCharges = [
   { id: 11, name: "Auto parkeren", amount: 10 },
   { id: 12, name: "Amjad Zorgverzekering", amount: 160.85 },
   { id: 13, name: "Duaa Zorgverzekering", amount: 235 },
-  { id: 14, name: "Elektra", amount: 221 },
+  { id: 14, name: "Elektra", amount: 255 },
   { id: 15, name: "Water", amount: 32 },
   { id: 16, name: "Internet", amount: 43.90 },
   { id: 17, name: "ABN Bijdrage", amount: 4.30 },
